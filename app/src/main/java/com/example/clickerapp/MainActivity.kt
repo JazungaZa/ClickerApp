@@ -1,5 +1,7 @@
 package com.example.clickerapp
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -18,8 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     var count : Int = 0
     var userName : String? = null
-    var userNow : Int = 0
     var userAllTime : Int = 0
+
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,47 @@ class MainActivity : AppCompatActivity() {
             count++
             now.setText("" + count)
         }
+
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        retriveData()
+    }
+
+
+
+
+    fun saveData(){
+
+        sharedPreferences = this.getSharedPreferences("saveData",Context.MODE_PRIVATE)
+
+        userName = name.text.toString()
+        userAllTime += count
+
+        var editor =sharedPreferences.edit()
+
+        editor.putString("key name",userName)
+        editor.putInt("key counter",userAllTime)
+
+        editor.apply()
+
+    }
+    fun retriveData(){
+
+        sharedPreferences = this.getSharedPreferences("saveData",Context.MODE_PRIVATE)
+
+        userName = sharedPreferences.getString("key name", null)
+        userAllTime = sharedPreferences.getInt("key counter", 0)
+
+        name.setText(userName)
+        allTime.setText("" + userAllTime)
 
 
     }
