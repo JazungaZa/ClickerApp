@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Klik App</string>
+    <string name="name">Ime:</string>
+    <string name="clicked_now">Pritisnuto sada:</string>
+    <string name="clicked_all_time">Pritisnuto ikad:</string>
+    <string name="click">Klik</string>
+</resources>
